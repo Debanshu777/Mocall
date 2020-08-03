@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1500">
+       <KeyFrameSet>
+           <KeyAttribute
+               motion:motionTarget="@+id/loadgif"
+               motion:framePosition="100"
+               android:scaleX="0"
+               android:scaleY="0" />
+           <KeyAttribute
+               motion:motionTarget="@+id/loadgif"
+               motion:framePosition="99"
+               android:scaleX="100"
+               android:scaleY="100" />
+           <KeyAttribute
+               motion:motionTarget="@+id/loadgif"
+               motion:framePosition="49"
+               android:scaleX="0.5"
+               android:scaleY="0.5" />
+           <KeyAttribute
+               motion:motionTarget="@+id/loadgif"
+               motion:framePosition="70"
+               android:scaleX="0.5"
+               android:scaleY="0.5"/>
+       </KeyFrameSet>
+        <OnClick motion:targetId="@+id/loadgif" />
+    </Transition>
+
+    <ConstraintSet>
+
+        <Constraint
+            motion:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/motion_base"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="411dp"
+            android:layout_marginRight="411dp" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint android:id="@+id/motion_base">
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="#fff"/>
+        </Constraint>
+    </ConstraintSet>
+</MotionScene>

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Mocall</string>
+    <string name="verification1">Please confirm you phone country code and enter your phone number.</string>
 </resources>

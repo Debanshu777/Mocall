@@ -13,7 +13,7 @@
         android:layout_height="300dp"
         android:background="@drawable/curveddesign_bottom_to_top"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
         android:id="@+id/design_bottom"
@@ -21,7 +21,7 @@
         android:layout_height="300dp"
         android:background="@drawable/curveddesign_top_to_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <RelativeLayout
         android:id="@+id/main_holder"
@@ -30,22 +30,54 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="25dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="240dp"
-            android:layout_marginBottom="490dp"
+            android:layout_marginTop="62dp"
+            android:layout_marginEnd="277dp"
             android:contentDescription="Logo of the app"
             android:src="@drawable/icon" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"
+            android:layout_marginStart="30dp"
+            android:textColor="#51575B"
+            android:textStyle="bold"
+            android:text="Your Number"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:textColor="#ACB5C8"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="@string/verification1" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/verification_card"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/subtitle"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp" />
     </RelativeLayout>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motion_base"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent"
         android:background="@drawable/verticalgradient_top_to_bottom"
         app:layoutDescription="@xml/activity_splash_scene">

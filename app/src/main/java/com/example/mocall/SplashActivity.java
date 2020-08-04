@@ -18,18 +18,23 @@ public class SplashActivity extends AppCompatActivity {
 
     private ImageView loadgif;
     private MotionLayout motion_base;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        motion_base=findViewById(R.id.motion_base);
-        loadgif=findViewById(R.id.loadgif);
+        motion_base = findViewById(R.id.motion_base);
+        loadgif = findViewById(R.id.loadgif);
         Glide.with(this)
                 .load(R.raw.ballgif)
                 .into(loadgif);
+        animation(true);
 
 
+    }
+
+    public void animation(final boolean bool) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -37,10 +42,15 @@ public class SplashActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        loadgif.setVisibility(View.INVISIBLE);
-                        motion_base.performClick();
-//                        Intent intent=new Intent(SplashActivity.this,MainActivity.class);
-//                        startActivity(intent);
+                        if (bool) {
+                            loadgif.setVisibility(View.INVISIBLE);
+                            motion_base.performClick();
+                        }
+                        else {
+                            loadgif.setVisibility(View.INVISIBLE);
+                            Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 }, 1250);
             }

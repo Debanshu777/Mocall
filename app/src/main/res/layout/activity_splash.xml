@@ -7,11 +7,47 @@
     app:layoutDescription="@xml/activity_splash_scene2"
     tools:context=".SplashActivity">
 
+    <RelativeLayout
+        android:id="@+id/design_top"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:background="@drawable/curveddesign_bottom_to_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <RelativeLayout
+        android:id="@+id/design_bottom"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:background="@drawable/curveddesign_top_to_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <RelativeLayout
+        android:id="@+id/main_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="240dp"
+            android:layout_marginBottom="490dp"
+            android:contentDescription="Logo of the app"
+            android:src="@drawable/icon" />
+    </RelativeLayout>
+
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motion_base"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/verticalgradient"
+        android:background="@drawable/verticalgradient_top_to_bottom"
         app:layoutDescription="@xml/activity_splash_scene">
 
         <ImageView
@@ -25,6 +61,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.motion.widget.MotionLayout>
+
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -32,9 +32,9 @@
             android:id="@+id/logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginStart="25dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="62dp"
             android:layout_marginEnd="277dp"
             android:contentDescription="Logo of the app"
@@ -42,42 +42,126 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/logo"
             android:layout_marginStart="30dp"
-            android:textColor="#51575B"
-            android:textStyle="bold"
+            android:layout_marginTop="10dp"
             android:text="Your Number"
-            android:textSize="30sp" />
+            android:textColor="#51575B"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/subtitle"
-            android:padding="5dp"
-            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
-            android:textColor="#ACB5C8"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="30dp"
-            android:text="@string/verification1" />
+            android:padding="5dp"
+            android:text="@string/verification1"
+            android:textColor="#ACB5C8" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/verification_card"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:layout_below="@id/subtitle"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp" />
+            app:contentPadding="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/steps_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:textSize="13dp"
+                    android:text="Step 1 of 2"
+                    android:textColor="#51575B"
+                    android:textStyle="bold" />
+
+                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_below="@+id/steps_number"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    app:rcAnimationEnable="true"
+                    app:rcBackgroundColor="#F8F9FA"
+                    app:rcMax="100"
+                    app:rcProgress="50"
+                    app:rcProgressColor="@color/colorPrimary"
+                    app:rcRadius="5dp" />
+
+                <LinearLayout
+                    android:id="@+id/number_plate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/progress_bar"
+                    android:gravity="start"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/ccp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="#F8F9FA"
+                        app:ccp_defaultNameCode="In" />
+
+                    <EditText
+                        android:id="@+id/phoneText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#ACB5C8"
+                        android:gravity="bottom"
+                        android:paddingStart="10dp"
+                        android:background="#F8F9FA"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:hint="XXX-XXX-XXXX"
+                        android:inputType="phone"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:singleLine="true" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/continueNextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/number_plate"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/buttonstyle"
+                    android:text="Generate OTP"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motion_base"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="match_parent"
         android:background="@drawable/verticalgradient_top_to_bottom"
         app:layoutDescription="@xml/activity_splash_scene">

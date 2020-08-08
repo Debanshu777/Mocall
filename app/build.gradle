@@ -16,7 +16,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -24,7 +24,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -53,7 +53,8 @@ dependencies {
     //permission
     implementation 'pub.devrel:easypermissions:3.0.0'
 
-
+    //OTP Layout
+    implementation 'com.github.aabhasr1:OtpView:1.0.6'
 
 }
 apply plugin: 'com.google.gms.google-services'

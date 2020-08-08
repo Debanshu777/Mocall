@@ -67,14 +67,15 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/verification_card"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/subtitle"
-            app:contentPadding="10dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
+            android:paddingBottom="10dp"
             android:layout_marginEnd="10dp"
-            app:cardElevation="10dp">
+            app:cardElevation="10dp"
+            app:contentPadding="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -86,9 +87,9 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="10dp"
                     android:paddingTop="10dp"
-                    android:textSize="13dp"
                     android:text="Step 1 of 2"
                     android:textColor="#51575B"
+                    android:textSize="13dp"
                     android:textStyle="bold" />
 
                 <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
@@ -102,7 +103,7 @@
                     app:rcAnimationEnable="true"
                     app:rcBackgroundColor="#F8F9FA"
                     app:rcMax="100"
-                    app:rcProgress="50"
+                    app:rcProgress="0"
                     app:rcProgressColor="@color/colorPrimary"
                     app:rcRadius="5dp" />
 
@@ -111,11 +112,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/progress_bar"
-                    android:gravity="start"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                    android:gravity="start"
+                    android:orientation="vertical"
+                    >
 
 
                     <com.hbb20.CountryCodePicker
@@ -129,32 +131,102 @@
                         android:id="@+id/phoneText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="#ACB5C8"
-                        android:gravity="bottom"
-                        android:paddingStart="10dp"
-                        android:background="#F8F9FA"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:hint="XXX-XXX-XXXX"
-                        android:inputType="phone"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:singleLine="true" />
+                        android:background="#F8F9FA"
+                        android:gravity="bottom"
+                        android:hint="XXX-XXX-XXXX"
+                        android:inputType="phone"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:singleLine="true"
+                        android:textColorHint="#ACB5C8" />
 
                 </LinearLayout>
 
+                <in.aabhasjindal.otptextview.OtpTextView
+                    android:id="@+id/otp_plate"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"
+                    app:width="42dp"
+                    android:layout_centerInParent="true"
+                    android:layout_below="@+id/progress_bar"
+                    android:layout_marginLeft="10dp"
+                    app:otp_text_size="15dp"
+                    android:background="#F8F9FA"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#51575B"
+                    app:bar_enabled="true"
+                    app:length="6"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/verificationText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/number_plate"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="@string/verification2"
+                    android:textColor="#ACB5C8"
+                    android:textSize="13dp"
+                   />
+
+                <TextView
+                    android:id="@+id/re_send_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/otp_plate"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="@string/code_text"
+                    android:textColor="#51575B"
+                    android:textSize="13dp"
+                    android:visibility="gone" />
+
                 <Button
-                    android:id="@+id/continueNextButton"
+                    android:id="@+id/generateOTP"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/number_plate"
+                    android:layout_below="@+id/verificationText2"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/buttonstyle"
                     android:text="Generate OTP"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    />
+
+                <Button
+                    android:id="@+id/verify"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/re_send_code"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/buttonstyle"
+                    android:text="Verify"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:visibility="gone"/>
+                <TextView
+                    android:layout_below="@+id/verify"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+                <TextView
+                    android:layout_below="@+id/generateOTP"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
@@ -164,6 +236,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/verticalgradient_top_to_bottom"
+        android:visibility="gone"
         app:layoutDescription="@xml/activity_splash_scene">
 
         <ImageView

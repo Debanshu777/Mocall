@@ -72,6 +72,7 @@ public class SplashActivity extends AppCompatActivity {
         verificationText2=findViewById(R.id.verificationText2);
         resend_code=findViewById(R.id.re_send_code);
         otp_plate=findViewById(R.id.otp_plate);
+        otp_plate.setVisibility(View.GONE);
         number_plate=findViewById(R.id.number_plate);
         country_code=findViewById(R.id.ccp);
         phone_number=findViewById(R.id.phoneText);
@@ -79,6 +80,7 @@ public class SplashActivity extends AppCompatActivity {
         step_number=findViewById(R.id.steps_number);
         subtitle=findViewById(R.id.subtitle);
         title=findViewById(R.id.title);
+        country_code=findViewById(R.id.ccp);
     }
 
     public void animation(final boolean bool) {

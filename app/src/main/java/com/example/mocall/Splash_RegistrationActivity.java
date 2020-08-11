@@ -9,9 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,15 +23,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class SplashActivity extends AppCompatActivity {
+public class Splash_RegistrationActivity extends AppCompatActivity {
 
     private ImageView loadgif;
     private MotionLayout motion_base;
@@ -58,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.activity_splash_registration);
         init();
         mAuth=FirebaseAuth.getInstance();
         Context context;
@@ -66,7 +61,12 @@ public class SplashActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(R.raw.ballgif)
                 .into(loadgif);
-        animation(true);
+        if (mAuth.getCurrentUser() != null) {
+            animation(false);
+        }
+        else{
+            animation(true);
+        }
         line_progressBar.setProgress(50);
         generate_otp_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,11 +82,11 @@ public class SplashActivity extends AppCompatActivity {
                             phoneNumber,        // Phone number to verify
                             60,                 // Timeout duration
                             TimeUnit.SECONDS,   // Unit of timeout
-                            SplashActivity.this,               // Activity (for callback binding)
+                            Splash_RegistrationActivity.this,               // Activity (for callback binding)
                             mCallbacks);        // OnVerificationStateChangedCallbacks
                 }
                 else {
-                    Toast.makeText(SplashActivity.this, "Enter valid Phone number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Splash_RegistrationActivity.this, "Enter valid Phone number", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -95,10 +95,10 @@ public class SplashActivity extends AppCompatActivity {
             public void onClick(View view) {
                  String verificationCode=otp_plate.getOTP().toString();
                  if(verificationCode.equals("")){
-                     Toast.makeText(SplashActivity.this, "Enter verification code", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(Splash_RegistrationActivity.this, "Enter verification code", Toast.LENGTH_SHORT).show();
                  }
                  else {
-                     loadingdialogue.setTitle("Code Verification");
+                     loadingdialogue.setTitle("OTP Verification");
                      loadingdialogue.setMessage("Please Wait....");
                      loadingdialogue.setCanceledOnTouchOutside(false);
                      loadingdialogue.show();
@@ -118,7 +118,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
-                Toast.makeText(SplashActivity.this, "Invalid Number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Splash_RegistrationActivity.this, "Invalid Number", Toast.LENGTH_SHORT).show();
                 loadingdialogue.dismiss();
                 failed_case();
             }
@@ -129,7 +129,7 @@ public class SplashActivity extends AppCompatActivity {
                 mVerificationId=s;
                 mResendToken=forceResendingToken;
                 loadingdialogue.dismiss();
-                Toast.makeText(SplashActivity.this, "Code Send!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Splash_RegistrationActivity.this, "Code Send!", Toast.LENGTH_SHORT).show();
                 generate_btn_func();
             }
         };
@@ -144,18 +144,18 @@ public class SplashActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             loadingdialogue.dismiss();
-                            Toast.makeText(SplashActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Splash_RegistrationActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
                             sendUserToMainActivity();
                         } else {
                             loadingdialogue.dismiss();
                             String e=task.getException().toString();
-                            Toast.makeText(SplashActivity.this, "Error :"+e, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Splash_RegistrationActivity.this, "Error :"+e, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
     private void sendUserToMainActivity(){
-        Intent intent=new Intent(SplashActivity.this,MainActivity.class);
+        Intent intent=new Intent(Splash_RegistrationActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -223,8 +223,7 @@ public class SplashActivity extends AppCompatActivity {
                         }
                         else {
                             loadgif.setVisibility(View.INVISIBLE);
-                            Intent intent=new Intent(SplashActivity.this,MainActivity.class);
-                            startActivity(intent);
+                            sendUserToMainActivity();
                         }
                     }
                 }, 1250);

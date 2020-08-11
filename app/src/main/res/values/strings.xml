@@ -3,4 +3,8 @@
     <string name="verification1">Please confirm you phone country code and enter your phone number.</string>
     <string name="verification2">We will send you <b>ONE</b> time SMS message. \nCarrier rates may apply.</string>
     <string name="code_text">Haven\'t received verification code ? \nTap to <b>Resend Code</b></string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

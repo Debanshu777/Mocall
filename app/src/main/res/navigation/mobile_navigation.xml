@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.mocall.ui.home.HomeFragment"
+        android:name="com.example.mocall.ui.fragment.HomeFragment"
         android:label=""
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.mocall.ui.profile.ProfileFragment"
+        android:name="com.example.mocall.ui.fragment.ProfileFragment"
         android:label=""
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.mocall.ui.notifications.NotificationsFragment"
+        android:name="com.example.mocall.ui.fragment.NotificationsFragment"
         android:label=""
         tools:layout="@layout/fragment_notifications" />
 </navigation>

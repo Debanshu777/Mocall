@@ -1,4 +1,4 @@
-package com.example.mocall;
+package com.example.mocall.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 
 import com.bumptech.glide.Glide;
+import com.example.mocall.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -150,7 +151,7 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
                 });
     }
     private void sendUserToMainActivity(){
-        Intent intent=new Intent(Splash_RegistrationActivity.this,MainActivity.class);
+        Intent intent = new Intent(Splash_RegistrationActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

@@ -1,9 +1,5 @@
 package com.example.mocall;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.motion.widget.MotionLayout;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.motion.widget.MotionLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,12 +61,7 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(R.raw.ballgif)
                 .into(loadgif);
-        if (mAuth.getCurrentUser() != null) {
-            animation(false);
-        }
-        else{
-            animation(true);
-        }
+        animation(mAuth.getCurrentUser() == null);
         line_progressBar.setProgress(50);
         generate_otp_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +88,7 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
         verify_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 String verificationCode=otp_plate.getOTP().toString();
+                String verificationCode = otp_plate.getOTP();
                  if(verificationCode.equals("")){
                      Toast.makeText(Splash_RegistrationActivity.this, "Enter verification code", Toast.LENGTH_SHORT).show();
                  }
@@ -162,7 +157,7 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
 
     private void generate_btn_func() {
         title.setText("Verification");
-        subtitle.setText("Please type the verification code send to "+ country_code.getFullNumberWithPlus().toString());
+        subtitle.setText("Please type the verification code send to " + country_code.getFullNumberWithPlus());
         step_number.setText("Step 2 of 2");
         line_progressBar.setProgress(100);
         number_plate.setVisibility(View.GONE);

@@ -1,7 +1,6 @@
 package com.example.mocall.ui;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,14 +18,13 @@ import androidx.constraintlayout.motion.widget.MotionLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.mocall.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class Splash_RegistrationActivity extends AppCompatActivity {
@@ -48,7 +46,7 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
-    private ProgressDialog loadingdialogue;
+    private ProgressDialog loadingDialogue;
 
 
     @Override
@@ -57,52 +55,48 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_registration);
         init();
         mAuth=FirebaseAuth.getInstance();
-        Context context;
-        loadingdialogue=new ProgressDialog(this);
+        loadingDialogue =new ProgressDialog(this);
         Glide.with(this)
                 .load(R.raw.ballgif)
                 .into(loadgif);
         animation(mAuth.getCurrentUser() == null);
         line_progressBar.setProgress(50);
-        generate_otp_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                phoneNumber=country_code.getFullNumberWithPlus();
-                if(!(phoneNumber.equals("") || phoneNumber.length()<10)){
-                    loadingdialogue.setTitle("Phone Number Verification");
-                    loadingdialogue.setMessage("Please Wait....");
-                    loadingdialogue.setCanceledOnTouchOutside(false);
-                    loadingdialogue.show();
+        generate_otp_button.setOnClickListener(view -> {
+            phoneNumber=country_code.getFullNumberWithPlus();
+            if(!(phoneNumber.equals("") || phoneNumber.length()<10)){
+                loadingDialogue.setTitle("Phone Number Verification");
+                loadingDialogue.setMessage("Please Wait....");
+                loadingDialogue.setCanceledOnTouchOutside(false);
+                loadingDialogue.show();
 
-                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                            phoneNumber,        // Phone number to verify
-                            60,                 // Timeout duration
-                            TimeUnit.SECONDS,   // Unit of timeout
-                            Splash_RegistrationActivity.this,               // Activity (for callback binding)
-                            mCallbacks);        // OnVerificationStateChangedCallbacks
-                }
-                else {
-                    Toast.makeText(Splash_RegistrationActivity.this, "Enter valid Phone number", Toast.LENGTH_SHORT).show();
-                }
+                PhoneAuthOptions options =
+                        PhoneAuthOptions.newBuilder(mAuth)
+                                .setPhoneNumber(phoneNumber)       // Phone number to verify
+                                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                                .setActivity(Splash_RegistrationActivity.this)                 // Activity (for callback binding)
+                                .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                                .build();
+                PhoneAuthProvider.verifyPhoneNumber(options);
+
+            }
+            else {
+                Toast.makeText(Splash_RegistrationActivity.this, "Enter valid Phone number", Toast.LENGTH_SHORT).show();
             }
         });
-        verify_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String verificationCode = otp_plate.getOTP();
-                 if(verificationCode.equals("")){
-                     Toast.makeText(Splash_RegistrationActivity.this, "Enter verification code", Toast.LENGTH_SHORT).show();
-                 }
-                 else {
-                     loadingdialogue.setTitle("OTP Verification");
-                     loadingdialogue.setMessage("Please Wait....");
-                     loadingdialogue.setCanceledOnTouchOutside(false);
-                     loadingdialogue.show();
+        verify_button.setOnClickListener(view -> {
+            String verificationCode = otp_plate.getOTP();
+             if(verificationCode.equals("")){
+                 Toast.makeText(Splash_RegistrationActivity.this, "Enter verification code", Toast.LENGTH_SHORT).show();
+             }
+             else {
+                 loadingDialogue.setTitle("OTP Verification");
+                 loadingDialogue.setMessage("Please Wait....");
+                 loadingDialogue.setCanceledOnTouchOutside(false);
+                 loadingDialogue.show();
 
-                     PhoneAuthCredential credential=PhoneAuthProvider.getCredential(mVerificationId,verificationCode);
-                     signInWithPhoneAuthCredential(credential);
-                 }
-            }
+                 PhoneAuthCredential credential=PhoneAuthProvider.getCredential(mVerificationId,verificationCode);
+                 signInWithPhoneAuthCredential(credential);
+             }
         });
 
 
@@ -115,7 +109,7 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 Toast.makeText(Splash_RegistrationActivity.this, "Invalid Number", Toast.LENGTH_SHORT).show();
-                loadingdialogue.dismiss();
+                loadingDialogue.dismiss();
                 failed_case();
             }
 
@@ -124,7 +118,7 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
                 super.onCodeSent(s, forceResendingToken);
                 mVerificationId=s;
                 mResendToken=forceResendingToken;
-                loadingdialogue.dismiss();
+                loadingDialogue.dismiss();
                 Toast.makeText(Splash_RegistrationActivity.this, "Code Send!", Toast.LENGTH_SHORT).show();
                 generate_btn_func();
             }
@@ -135,18 +129,15 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            loadingdialogue.dismiss();
-                            Toast.makeText(Splash_RegistrationActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
-                            sendUserToMainActivity();
-                        } else {
-                            loadingdialogue.dismiss();
-                            String e=task.getException().toString();
-                            Toast.makeText(Splash_RegistrationActivity.this, "Error :"+e, Toast.LENGTH_SHORT).show();
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        loadingDialogue.dismiss();
+                        Toast.makeText(Splash_RegistrationActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
+                        sendUserToMainActivity();
+                    } else {
+                        loadingDialogue.dismiss();
+                        String e= Objects.requireNonNull(task.getException()).toString();
+                        Toast.makeText(Splash_RegistrationActivity.this, "Error :"+e, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -206,24 +197,18 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
     }
 
     public void animation(final boolean bool) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadgif.performClick();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (bool) {
-                            loadgif.setVisibility(View.INVISIBLE);
-                            motion_base.performClick();
-                        }
-                        else {
-                            loadgif.setVisibility(View.INVISIBLE);
-                            sendUserToMainActivity();
-                        }
-                    }
-                }, 1250);
-            }
+        new Handler().postDelayed(() -> {
+            loadgif.performClick();
+            new Handler().postDelayed(() -> {
+                if (bool) {
+                    loadgif.setVisibility(View.INVISIBLE);
+                    motion_base.performClick();
+                }
+                else {
+                    loadgif.setVisibility(View.INVISIBLE);
+                    sendUserToMainActivity();
+                }
+            }, 1250);
         }, 4000);
     }
 }

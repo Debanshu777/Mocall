@@ -89,7 +89,7 @@
                     android:paddingTop="10dp"
                     android:text="Step 1 of 2"
                     android:textColor="#51575B"
-                    android:textSize="13dp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar

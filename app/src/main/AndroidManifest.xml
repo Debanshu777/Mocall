@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/title_activity_main"
             />
-        <activity android:name=".ui.Splash_RegistrationActivity">
+        <activity android:name=".ui.activity.RegistrationLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

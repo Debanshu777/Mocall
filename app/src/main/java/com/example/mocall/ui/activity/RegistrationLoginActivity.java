@@ -1,4 +1,4 @@
-package com.example.mocall.ui;
+package com.example.mocall.ui.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -27,7 +27,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class Splash_RegistrationActivity extends AppCompatActivity {
+public class RegistrationLoginActivity extends AppCompatActivity {
 
     private ImageView loadgif;
     private MotionLayout motion_base;
@@ -73,20 +73,20 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
                         PhoneAuthOptions.newBuilder(mAuth)
                                 .setPhoneNumber(phoneNumber)       // Phone number to verify
                                 .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                                .setActivity(Splash_RegistrationActivity.this)                 // Activity (for callback binding)
+                                .setActivity(RegistrationLoginActivity.this)                 // Activity (for callback binding)
                                 .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
                                 .build();
                 PhoneAuthProvider.verifyPhoneNumber(options);
 
             }
             else {
-                Toast.makeText(Splash_RegistrationActivity.this, "Enter valid Phone number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationLoginActivity.this, "Enter valid Phone number", Toast.LENGTH_SHORT).show();
             }
         });
         verify_button.setOnClickListener(view -> {
             String verificationCode = otp_plate.getOTP();
              if(verificationCode.equals("")){
-                 Toast.makeText(Splash_RegistrationActivity.this, "Enter verification code", Toast.LENGTH_SHORT).show();
+                 Toast.makeText(RegistrationLoginActivity.this, "Enter verification code", Toast.LENGTH_SHORT).show();
              }
              else {
                  loadingDialogue.setTitle("OTP Verification");
@@ -108,7 +108,7 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
-                Toast.makeText(Splash_RegistrationActivity.this, "Invalid Number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationLoginActivity.this, "Invalid Number", Toast.LENGTH_SHORT).show();
                 loadingDialogue.dismiss();
                 failed_case();
             }
@@ -119,7 +119,7 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
                 mVerificationId=s;
                 mResendToken=forceResendingToken;
                 loadingDialogue.dismiss();
-                Toast.makeText(Splash_RegistrationActivity.this, "Code Send!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrationLoginActivity.this, "Code Send!", Toast.LENGTH_SHORT).show();
                 generate_btn_func();
             }
         };
@@ -132,17 +132,17 @@ public class Splash_RegistrationActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         loadingDialogue.dismiss();
-                        Toast.makeText(Splash_RegistrationActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationLoginActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
                         sendUserToMainActivity();
                     } else {
                         loadingDialogue.dismiss();
                         String e= Objects.requireNonNull(task.getException()).toString();
-                        Toast.makeText(Splash_RegistrationActivity.this, "Error :"+e, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationLoginActivity.this, "Error :"+e, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
     private void sendUserToMainActivity(){
-        Intent intent = new Intent(Splash_RegistrationActivity.this, MainActivity.class);
+        Intent intent = new Intent(RegistrationLoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

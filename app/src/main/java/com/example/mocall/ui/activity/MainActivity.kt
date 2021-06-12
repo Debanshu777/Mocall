@@ -1,4 +1,4 @@
-package com.example.mocall.ui
+package com.example.mocall.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
